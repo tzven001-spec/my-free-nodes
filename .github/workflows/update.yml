@@ -2,8 +2,8 @@ name: Update free nodes
 
 on:
   schedule:
-    - cron: "0 * * * *"   # 姣忓皬鏃舵暣鐐硅繍琛屼竴娆★紙鑺傜偣澶辨晥蹇紝棰戠巼鍙互鍐嶈皟楂橈級
-  workflow_dispatch:        # 鍏佽鎵嬪姩瑙﹀彂
+    - cron: "0 */6 * * *"   # 每 6 小时运行一次
+  workflow_dispatch:         # 允许手动触发
 
 permissions:
   contents: write
@@ -26,6 +26,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add output/
-          git diff --cached --quiet && echo "鏃犲彉鍖栵紝璺宠繃鎻愪氦" && exit 0
-          git commit -m "$(date -u '+%Y-%m-%d %H:%M:%S') 鏇存柊鑺傜偣"
+          git diff --cached --quiet && echo "no changes, skip" && exit 0
+          git commit -m "update nodes"
           git push
